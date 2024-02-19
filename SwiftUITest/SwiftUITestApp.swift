@@ -16,9 +16,20 @@ struct SwiftUITestApp: App {
             ContentView()
                 .environment(modelData)
         }
+        #if !os(watchOS)
+        .commands {
+            LandmarkComands()
+        }
+        #endif
         
         #if os(watchOS)
         WKNotificationScene(controller: NotificationController.self, category: "LandmarkNear")
+        #endif
+        
+        #if os(macOS)
+        Settings {
+            LandmarkSettings()
+        }
         #endif
     }
 }
